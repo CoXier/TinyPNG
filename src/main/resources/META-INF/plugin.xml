@@ -21,6 +21,7 @@
     <actions>
         <!-- Add your actions here -->
         <action id="TinyPNG.TinyPNGAction" class="TinyPNGAction" text="TinyPNG"
+                icon="/icons/icon.png"
                 description="Smart PNG and JPEG compression">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
