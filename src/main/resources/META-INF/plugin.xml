@@ -1,12 +1,9 @@
 <idea-plugin>
     <id>com.coxier.TinyPNG</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>TinyPNG</name>
+    <vendor email="justcoxier@gmail.com" url="https://github.com/CoXier/TinyPNG">CoXier</vendor>
 
-    <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
-    ]]></description>
+    <description>IDEA plugin for TinyPNG for https://tinypng.com/</description>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -20,7 +17,7 @@
 
     <actions>
         <!-- Add your actions here -->
-        <action id="TinyPNG.TinyPNGAction" class="TinyPNGAction" text="TinyPNG"
+        <action id="TinyPNG.action.TinyPNGAction" class="action.TinyPNGAction" text="TinyPNG"
                 icon="/icons/icon.png"
                 description="Smart PNG and JPEG compression">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
