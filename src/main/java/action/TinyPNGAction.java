@@ -3,11 +3,14 @@ package action;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataKeys;
+import com.intellij.openapi.progress.ProgressIndicator;
+import com.intellij.openapi.progress.ProgressManager;
+import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.vfs.VirtualFile;
 import download.DownloadManager;
 import download.FileTask;
+import manager.TinyPNGManager;
 import org.jetbrains.annotations.NotNull;
-import upload.UploadManager;
 
 import java.io.File;
 
@@ -19,9 +22,15 @@ public class TinyPNGAction extends AnAction {
         if (selectedFiles == null || selectedFiles.length == 0) {
             return;
         }
-        UploadManager uploadManager = new UploadManager();
-        String url = uploadManager.uploadImage(new File(selectedFiles[0].getPath()));
-        DownloadManager.getInstance().downloadFile(new FileTask(url, selectedFiles[0].getPath()));
+        ProgressManager.getInstance().run(new Task.Modal(e.getProject(), "TinyPNG", false) {
+            public void run(@NotNull ProgressIndicator progressIndicator) {
+                File[] files = new File[selectedFiles.length];
+                for (int i = 0; i < files.length; i++) {
+                    files[i] = new File(selectedFiles[i].getPath());
+                }
+                TinyPNGManager.compress(files);
+            }
+        });
     }
 
     @Override
