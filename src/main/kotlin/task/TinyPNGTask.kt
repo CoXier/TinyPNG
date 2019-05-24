@@ -19,8 +19,8 @@ class TinyPNGTask(var inputFile: File) : Runnable {
             resultUrl != null -> {
                 println("[Download][${inputFile.name}] start download file")
                 DownloadManager.getInstance().downloadFile(FileTask(resultUrl, inputFile.path))
-                println("[Download][${inputFile.name}] compress file in ${(System.currentTimeMillis() - startTime) / 1000}s")
-                println("[Result] input: ${inputFileSize}B output: ${preTinyResponse!!.output.size}B")
+                println("[Download][${inputFile.name}] finish download")
+                println("[Result][${inputFile.name}] Compress $compressCount times in ${(System.currentTimeMillis() - startTime) / 1000}s. Input: ${inputFileSize}B output: ${preTinyResponse!!.output.size}B.")
             }
             preTinyResponse == null -> {
                 startTime = System.currentTimeMillis()
@@ -35,9 +35,7 @@ class TinyPNGTask(var inputFile: File) : Runnable {
             }
             preTinyResponse != null -> {
                 println("[UrlUpload][${inputFile.name}] start upload url in compress[$compressCount]")
-                print(preTinyResponse.hashCode())
                 preTinyResponse = UrlUploadTask(TinyPNGManager.service, preTinyResponse!!.output.url).run() ?: preTinyResponse
-                print(preTinyResponse.hashCode())
                 println("[UrlUpload][${inputFile.name}] finish upload url in compress[${compressCount++}]")
                 if (preTinyResponse != null && 1 - preTinyResponse!!.output.ratio <= 0.005) {
                     resultUrl = preTinyResponse!!.output.url
