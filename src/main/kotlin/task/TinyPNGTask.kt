@@ -18,7 +18,7 @@ class TinyPNGTask(var inputFile: File) : Runnable {
         when {
             resultUrl != null -> {
                 println("[Download][${inputFile.name}] start download file")
-                DownloadManager.getInstance().downloadFile(FileTask(resultUrl, inputFile.path))
+                DownloadManager.instance.downloadFile(FileTask(resultUrl!!, inputFile.path))
                 println("[Download][${inputFile.name}] finish download")
                 println("[Result][${inputFile.name}] Compress $compressCount times in ${(System.currentTimeMillis() - startTime) / 1000}s. Input: ${inputFileSize}B output: ${preTinyResponse!!.output.size}B.")
             }

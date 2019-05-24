@@ -22,8 +22,8 @@ object TinyPNGManager {
 
 
 
-    @JvmStatic fun compress(fileArray: Array<File>) {
-        val task = TinyPNGTask(fileArray[0])
+    @JvmStatic fun compress(fileArray: Array<File?>) {
+        val task = TinyPNGTask(fileArray[0]!!)
         task.run()
     }
 
