@@ -7,9 +7,9 @@ import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.progress.Task
 import com.intellij.openapi.vfs.VirtualFile
-import download.DownloadManager
-import download.FileTask
 import manager.TinyPNGManager
+import task.TinyPNGTask
+import util.FileUtils
 
 import java.io.File
 
@@ -22,11 +22,17 @@ class TinyPNGAction : AnAction() {
         }
         ProgressManager.getInstance().run(object : Task.Modal(e.project, "TinyPNG", false) {
             override fun run(progressIndicator: ProgressIndicator) {
-                val files = arrayOfNulls<File>(selectedFiles.size)
-                for (i in files.indices) {
-                    files[i] = File(selectedFiles[i].path)
+                val tinyPNGArray = arrayOfNulls<TinyPNGTask>(selectedFiles.size)
+                for (i in tinyPNGArray.indices) {
+                    val sourceFile = File(selectedFiles[i].path)
+                    val fileName = sourceFile.nameWithoutExtension +
+                            System.currentTimeMillis() + FileUtils.extractFileExtension(selectedFiles[i].path)
+                    val tmpFile = File("${e.project?.basePath}/build/tiny/$fileName")
+                    tmpFile.mkdir()
+                    sourceFile.copyTo(tmpFile, true)
+                    tinyPNGArray[i] = TinyPNGTask(tmpFile, sourceFile, sourceFile.name)
                 }
-                TinyPNGManager.compress(files)
+                TinyPNGManager.compress(tinyPNGArray)
             }
         })
     }
