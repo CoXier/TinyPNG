@@ -37,7 +37,9 @@ object TinyPNGManager {
         TimeUnit.SECONDS, poolWorkQueue, threadFactory)
 
     @JvmStatic fun compress(tinyPNGArray: Array<TinyPNGTask?>) {
-        threadPoolExecutor.execute(tinyPNGArray[0]!!)
+        tinyPNGArray.forEach {
+            threadPoolExecutor.execute(it!!)
+        }
     }
 
     @JvmStatic fun enqueueTask(task: TinyPNGTask) {
