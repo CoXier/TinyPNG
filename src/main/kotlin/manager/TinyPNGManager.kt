@@ -8,6 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import task.TinyPNGTask
 import java.io.File
 import java.util.concurrent.*
+import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.locks.Condition
+import java.util.concurrent.locks.Lock
+import java.util.concurrent.locks.ReentrantLock
 
 
 object TinyPNGManager {
@@ -36,10 +40,31 @@ object TinyPNGManager {
     private val threadPoolExecutor = ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS,
         TimeUnit.SECONDS, poolWorkQueue, threadFactory)
 
+    private val lock: ReentrantLock = ReentrantLock(false)
+
+    private val notFinish: Condition = lock.newCondition()
+
+    private val count: AtomicInteger = AtomicInteger(0)
+
     @JvmStatic fun compress(tinyPNGArray: Array<TinyPNGTask?>) {
         tinyPNGArray.forEach {
-            threadPoolExecutor.execute(it!!)
+            it!!.callback = object : TinyPNGTask.Callback {
+                override fun finish() {
+                    count.incrementAndGet()
+                    if (count.get() == tinyPNGArray.size) {
+                        lock.lock()
+                        notFinish.signal()
+                        lock.unlock()
+                    }
+                }
+            }
+            threadPoolExecutor.execute(it)
         }
+        lock.lock()
+        while (count.get() != tinyPNGArray.size) {
+            notFinish.await()
+        }
+        lock.unlock()
     }
 
     @JvmStatic fun enqueueTask(task: TinyPNGTask) {

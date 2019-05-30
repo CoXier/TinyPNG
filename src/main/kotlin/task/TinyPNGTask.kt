@@ -21,6 +21,7 @@ class TinyPNGTask(var inputFile: File, var outputFile: File, var taskName: Strin
                 DownloadManager.instance.downloadFile(FileTask(resultUrl!!, outputFile.path))
                 println("[Download][$taskName] finish download")
                 println("[Result][$taskName] Compress $compressCount times in ${(System.currentTimeMillis() - startTime) / 1000}s. Input: ${inputFileSize}B output: ${preTinyResponse!!.output.size}B.")
+                callback?.finish()
             }
             preTinyResponse == null -> {
                 startTime = System.currentTimeMillis()
@@ -48,4 +49,9 @@ class TinyPNGTask(var inputFile: File, var outputFile: File, var taskName: Strin
 
     var preTinyResponse: TinyResponse? = null
     var resultUrl: String? = null
+    var callback: Callback? = null
+
+    interface Callback {
+        fun finish()
+    }
 }
