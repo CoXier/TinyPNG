@@ -10,6 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile
 import manager.TinyPNGManager
 import task.TinyPNGTask
 import util.FileUtils
+import util.ILogger
 
 import java.io.File
 
@@ -20,8 +21,9 @@ class TinyPNGAction : AnAction() {
         if (selectedFiles == null || selectedFiles.isEmpty()) {
             return
         }
-        ProgressManager.getInstance().run(object : Task.Modal(e.project, "TinyPNG", false) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(e.project, "TinyPNG", false) {
             override fun run(progressIndicator: ProgressIndicator) {
+                progressIndicator.text = "TinyPNG"
                 val tinyPNGArray = arrayOfNulls<TinyPNGTask>(selectedFiles.size)
                 for (i in tinyPNGArray.indices) {
                     val sourceFile = File(selectedFiles[i].path)
@@ -32,7 +34,12 @@ class TinyPNGAction : AnAction() {
                     sourceFile.copyTo(tmpFile, true)
                     tinyPNGArray[i] = TinyPNGTask(tmpFile, sourceFile, sourceFile.name)
                 }
-                TinyPNGManager.compress(tinyPNGArray)
+                TinyPNGManager.compress(tinyPNGArray, object: ILogger {
+                    override fun print(msg: String) {
+                        progressIndicator.text2 = msg
+                    }
+
+                })
             }
         })
     }

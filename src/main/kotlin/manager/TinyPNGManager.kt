@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import task.TinyPNGTask
+import util.ILogger
 import java.io.File
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicInteger
@@ -31,7 +32,7 @@ object TinyPNGManager {
 
     private val MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1
 
-    private val KEEP_ALIVE_SECONDS = 30L
+    private const val KEEP_ALIVE_SECONDS = 30L
 
     private val threadFactory: ThreadFactory = ThreadFactory { r -> Thread(r) }
 
@@ -46,8 +47,9 @@ object TinyPNGManager {
 
     private val count: AtomicInteger = AtomicInteger(0)
 
-    @JvmStatic fun compress(tinyPNGArray: Array<TinyPNGTask?>) {
+    @JvmStatic fun compress(tinyPNGArray: Array<TinyPNGTask?>, logger: ILogger) {
         tinyPNGArray.forEach {
+            it!!.logger = logger
             it!!.callback = object : TinyPNGTask.Callback {
                 override fun finish() {
                     count.incrementAndGet()
