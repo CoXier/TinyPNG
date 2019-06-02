@@ -3,15 +3,12 @@ package manager
 import api.NetworkUtils
 import api.TinyPNGService
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import task.TinyPNGTask
 import util.ILogger
-import java.io.File
 import java.util.concurrent.*
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.locks.Condition
-import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 
 
@@ -19,7 +16,6 @@ object TinyPNGManager {
     private const val url = "https://tinypng.com/"
     private val retrofit = Retrofit.Builder()
         .baseUrl(url)
-        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .client(NetworkUtils.client)
         .build()

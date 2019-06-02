@@ -2,16 +2,7 @@ package download
 
 import api.NetworkUtils
 import okhttp3.Request
-import okhttp3.Response
-import okhttp3.ResponseBody
-import okio.BufferedSink
 import okio.Okio
-import retrofit2.Call
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Url
 
 import java.io.File
 import java.io.IOException
