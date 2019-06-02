@@ -21,7 +21,7 @@ class TinyPNGAction : AnAction() {
         if (selectedFiles == null || selectedFiles.isEmpty()) {
             return
         }
-        ProgressManager.getInstance().run(object : Task.Backgroundable(e.project, "TinyPNG", false) {
+        ProgressManager.getInstance().run(object : Task.Backgroundable(e.project, "TinyPNG", true) {
             override fun run(progressIndicator: ProgressIndicator) {
                 progressIndicator.text = "TinyPNG"
                 val tinyPNGArray = arrayOfNulls<TinyPNGTask>(selectedFiles.size)
