@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.coxier'
-version '1.0.0'
+version '1.0.2'
 
 sourceCompatibility = 1.8
 
@@ -45,6 +45,6 @@ publishPlugin {
 patchPluginXml {
     changeNotes """
       Free your hands.<br>
-      <em>Enjoy yourself.</em>"""
+      Enjoy yourself."""
     sinceBuild "141.0"
 }
