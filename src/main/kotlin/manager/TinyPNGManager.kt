@@ -63,6 +63,7 @@ object TinyPNGManager {
             notFinish.await()
         }
         lock.unlock()
+        count.set(0)
     }
 
     @JvmStatic fun enqueueTask(task: TinyPNGTask) {

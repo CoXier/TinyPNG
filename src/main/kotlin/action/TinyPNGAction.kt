@@ -38,8 +38,8 @@ class TinyPNGAction : AnAction() {
                     override fun print(msg: String) {
                         progressIndicator.text2 = msg
                     }
-
                 })
+                File("${e.project?.basePath}/build/tiny/").deleteRecursively()
             }
         })
     }
