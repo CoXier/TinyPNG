@@ -6,7 +6,7 @@
 
 TinyPNG plugin can compress png/jpeg many times until output is smallest.
 
-Just click the icon, then write your code. Free your hands, enjoy your self.
+Just click the icon, then write your code. Free your hands, enjoy yourself.
 
 # Installation
 Android Studio/IDEA **Preference** -> **Plugins** -> search **TinyPNG**
