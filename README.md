@@ -1,8 +1,8 @@
 # Before
-![](https://gitee.com/coxier/tuchuang/blob/master/jike_139915764017106_pic.gif)
+![](https://gitee.com/coxier/tuchuang/raw/master/jike_139915764017106_pic.gif)
 
 # Now
-![](https://gitee.com/coxier/tuchuang/blob/master/jike_139911847153017_pic.png)
+![](https://gitee.com/coxier/tuchuang/raw/master/jike_139911847153017_pic.png)
 
 TinyPNG plugin can compress png/jpeg many times until output is smallest.
 
