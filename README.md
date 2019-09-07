@@ -1,5 +1,5 @@
 # Before
-![](https://gitee.com/coxier/tuchuang/raw/master/jike_139915764017106_pic.gif)
+![](https://github.com/CoXier/TinyPNG/blob/master/screen/before.gif)
 
 # Now
 ![](https://gitee.com/coxier/tuchuang/raw/master/jike_139911847153017_pic.png)
