@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.coxier'
-version '1.0.3'
+version '1.0.4'
 
 sourceCompatibility = 1.8
 
@@ -45,7 +45,7 @@ publishPlugin {
 
 patchPluginXml {
     changeNotes """
-      Free your hands.<br>
-      Enjoy yourself."""
+      Fix files delected when Android Studio/ IDEA restart.<br>
+      This is a very important fix."""
     sinceBuild "141.0"
 }
