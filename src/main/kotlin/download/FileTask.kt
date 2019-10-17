@@ -16,7 +16,6 @@ class FileTask(override var url: String, var filePath: String) : IFileTask {
     override fun onPostExecute() {
         val inputFile = File(filePath)
         val outputFile = File(outputFilePath)
-        inputFile.deleteOnExit()
         outputFile.renameTo(inputFile)
     }
 }
